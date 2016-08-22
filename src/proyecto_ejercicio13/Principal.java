@@ -118,6 +118,11 @@ public class Principal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Campo vacío. Por favor llénelo", "ERROR", JOptionPane.ERROR_MESSAGE);
             txtNIntegrantes.requestFocusInWindow();
         }
+        else if (txtNIntegrantes.getText().equals("0")) {
+            JOptionPane.showMessageDialog(this, "Debe haber por lo menos un integrante", "ERROR", JOptionPane.ERROR_MESSAGE);
+            txtNIntegrantes.setText("");
+            txtNIntegrantes.requestFocusInWindow();
+        }
         else {
             double people, cobro, cobroTotal;
             people = Double.parseDouble(txtNIntegrantes.getText());
