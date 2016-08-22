@@ -5,6 +5,8 @@
  */
 package proyecto_ejercicio13;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author GABRIEL
@@ -30,7 +32,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtNIntegrantes1 = new javax.swing.JTextField();
+        txtNIntegrantes = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         cmdBorrar = new javax.swing.JButton();
         cmdCalcular = new javax.swing.JButton();
@@ -42,27 +44,43 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("AGENCIA DE VIAJES - TOUR");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, -1, 20));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jLabel3.setText("Digite el número de integrantes de la familia:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
-        jPanel1.add(txtNIntegrantes1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 65, 90, 30));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
+
+        txtNIntegrantes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNIntegrantesKeyTyped(evt);
+            }
+        });
+        jPanel1.add(txtNIntegrantes, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 55, 90, 30));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jLabel4.setText("El monto a pagar es:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 143, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 125, -1, -1));
 
         cmdBorrar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cmdBorrar.setText("Borrar");
-        jPanel1.add(cmdBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 90, 30));
+        cmdBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdBorrarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cmdBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, 90, 30));
 
         cmdCalcular.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cmdCalcular.setText("Calcular");
-        jPanel1.add(cmdCalcular, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 90, 30));
+        cmdCalcular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdCalcularActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cmdCalcular, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 90, 30));
 
         txtMonto.setEditable(false);
-        jPanel1.add(txtMonto, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 180, 30));
+        jPanel1.add(txtMonto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 153, 180, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -77,6 +95,37 @@ public class Principal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cmdBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdBorrarActionPerformed
+        // TODO add your handling code here:
+        txtNIntegrantes.setText("");
+        txtMonto.setText("");
+        txtNIntegrantes.requestFocusInWindow();                
+    }//GEN-LAST:event_cmdBorrarActionPerformed
+
+    private void txtNIntegrantesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNIntegrantesKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNIntegrantesKeyTyped
+
+    private void cmdCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCalcularActionPerformed
+        // TODO add your handling code here:
+        if (txtNIntegrantes.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Campo vacío. Por favor llénelo", "ERROR", JOptionPane.ERROR_MESSAGE);
+            txtNIntegrantes.requestFocusInWindow();
+        }
+        else {
+            double people, cobro, cobroTotal;
+            people = Double.parseDouble(txtNIntegrantes.getText());
+            cobro = people * 2500;
+            cobroTotal = (cobro * 0.12) + cobro;
+            txtMonto.setText(""+cobroTotal);
+        }
+    }//GEN-LAST:event_cmdCalcularActionPerformed
 
     /**
      * @param args the command line arguments
@@ -121,6 +170,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtMonto;
-    private javax.swing.JTextField txtNIntegrantes1;
+    private javax.swing.JTextField txtNIntegrantes;
     // End of variables declaration//GEN-END:variables
 }
